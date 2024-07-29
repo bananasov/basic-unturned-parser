@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use anyhow::Context;
 
 use crate::parser::Parser;
@@ -17,11 +19,11 @@ pub struct ItemBagAsset {
 }
 
 impl Parser<ItemBagAsset> for ItemBagAsset {
-    fn parse<P: AsRef<std::path::Path>>(
-        directory: P,
-        content: String,
+    fn parse<P: AsRef<Path> + ?Sized>(
+        directory: &P,
+        content: &str,
     ) -> anyhow::Result<ItemBagAsset> {
-        let base = BaseAsset::parse(directory, content.clone())?;
+        let base = BaseAsset::parse(directory, content)?;
         let mut item = ItemBagAsset {
             base,
             ..Default::default()

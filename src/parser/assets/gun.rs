@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use anyhow::Context;
 
 use super::weapon::ItemWeaponAsset;
@@ -73,14 +75,14 @@ pub enum Firemode {
 }
 
 impl Parser<ItemGunAsset> for ItemGunAsset {
-    fn parse<P: AsRef<std::path::Path>>(
-        directory: P,
-        content: String,
+    fn parse<P: AsRef<Path> + ?Sized>(
+        directory: &P,
+        content: &str,
     ) -> anyhow::Result<ItemGunAsset> {
-        let base = ItemWeaponAsset::parse(directory.as_ref(), content.clone())?;
-        let ammo = Ammo::parse(directory.as_ref(), content.clone())?;
-        let hooks: Vec<Hook> = Vec::parse(directory.as_ref(), content.clone())?;
-        let firemodes: Vec<Firemode> = Vec::parse(directory.as_ref(), content.clone())?;
+        let base = ItemWeaponAsset::parse(directory, content)?;
+        let ammo = Ammo::parse(directory, content)?;
+        let hooks: Vec<Hook> = Vec::parse(directory, content)?;
+        let firemodes: Vec<Firemode> = Vec::parse(directory, content)?;
 
         let mut item = ItemGunAsset {
             base,
@@ -114,7 +116,7 @@ impl Parser<ItemGunAsset> for ItemGunAsset {
 }
 
 impl Parser<Ammo> for Ammo {
-    fn parse<P: AsRef<std::path::Path>>(_directory: P, content: String) -> anyhow::Result<Ammo> {
+    fn parse<P: AsRef<Path> + ?Sized>(_directory: &P, content: &str) -> anyhow::Result<Ammo> {
         let mut ammo = Ammo::default();
 
         for line in content.lines() {
@@ -135,10 +137,7 @@ impl Parser<Ammo> for Ammo {
 }
 
 impl Parser<Vec<Hook>> for Vec<Hook> {
-    fn parse<P: AsRef<std::path::Path>>(
-        _directory: P,
-        content: String,
-    ) -> anyhow::Result<Vec<Hook>> {
+    fn parse<P: AsRef<Path> + ?Sized>(_directory: &P, content: &str) -> anyhow::Result<Vec<Hook>> {
         let mut hooks = Vec::new();
 
         for line in content.lines() {
@@ -176,9 +175,9 @@ impl From<&str> for Action {
 }
 
 impl Parser<Vec<Firemode>> for Vec<Firemode> {
-    fn parse<P: AsRef<std::path::Path>>(
-        _directory: P,
-        content: String,
+    fn parse<P: AsRef<Path> + ?Sized>(
+        _directory: &P,
+        content: &str,
     ) -> anyhow::Result<Vec<Firemode>> {
         let mut firemodes = Vec::new();
 

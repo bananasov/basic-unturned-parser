@@ -59,8 +59,11 @@ pub struct ItemCaliberAsset {
 }
 
 impl Parser<ItemCaliberAsset> for ItemCaliberAsset {
-    fn parse<P: AsRef<Path>>(directory: P, content: String) -> anyhow::Result<ItemCaliberAsset> {
-        let base = BaseAsset::parse(directory, content.clone())?;
+    fn parse<P: AsRef<Path> + ?Sized>(
+        directory: &P,
+        content: &str,
+    ) -> anyhow::Result<ItemCaliberAsset> {
+        let base = BaseAsset::parse(directory, content)?;
         let mut item = ItemCaliberAsset {
             base,
             ..Default::default()

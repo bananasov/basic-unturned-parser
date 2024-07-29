@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use anyhow::Context;
 
 use super::{BaseAsset, Parser};
@@ -28,12 +30,12 @@ pub struct PlayerDamage {
 }
 
 impl Parser<ItemWeaponAsset> for ItemWeaponAsset {
-    fn parse<P: AsRef<std::path::Path>>(
-        directory: P,
-        content: String,
+    fn parse<P: AsRef<Path> + ?Sized>(
+        directory: &P,
+        content: &str,
     ) -> anyhow::Result<ItemWeaponAsset> {
-        let base = BaseAsset::parse(directory.as_ref(), content.clone())?;
-        let player_damage = PlayerDamage::parse(directory.as_ref(), content.clone())?;
+        let base = BaseAsset::parse(directory, content)?;
+        let player_damage = PlayerDamage::parse(directory, content)?;
 
         let mut item = ItemWeaponAsset {
             base,
@@ -65,9 +67,9 @@ impl Parser<ItemWeaponAsset> for ItemWeaponAsset {
 }
 
 impl Parser<PlayerDamage> for PlayerDamage {
-    fn parse<P: AsRef<std::path::Path>>(
-        _directory: P,
-        content: String,
+    fn parse<P: AsRef<Path> + ?Sized>(
+        _directory: &P,
+        content: &str,
     ) -> anyhow::Result<PlayerDamage> {
         let mut damage = PlayerDamage::default();
 

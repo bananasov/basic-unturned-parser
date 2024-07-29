@@ -4,7 +4,7 @@ pub mod caliber;
 pub mod gun;
 pub mod weapon;
 
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 use anyhow::Context;
 
@@ -94,7 +94,7 @@ pub enum Rarity {
 }
 
 impl Parser<BaseAsset> for BaseAsset {
-    fn parse<P: AsRef<Path>>(directory: P, content: String) -> anyhow::Result<BaseAsset> {
+    fn parse<P: AsRef<Path> + ?Sized>(directory: &P, content: &str) -> anyhow::Result<BaseAsset> {
         let lines = content.lines();
         let mut base_asset = BaseAsset::default();
 
@@ -113,10 +113,9 @@ impl Parser<BaseAsset> for BaseAsset {
             }
         }
 
-        let mut language_file: PathBuf = directory.as_ref().into();
-        language_file.push("English.dat");
+        let language_file = directory.as_ref().join("English.dat");
 
-        let language = Language::parse_language(language_file)?;
+        let language = Language::parse_language(&language_file)?;
         base_asset.name = language.name;
         base_asset.description = language.description;
 

@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::Path;
 
 use anyhow::Context;
 
@@ -9,8 +9,8 @@ pub struct Language {
 }
 
 impl Language {
-    pub fn parse_language(path: PathBuf) -> anyhow::Result<Language> {
-        let content = std::fs::read_to_string(&path)
+    pub fn parse_language(path: &Path) -> anyhow::Result<Language> {
+        let content = std::fs::read_to_string(path)
             .with_context(|| format!("Failed to read content for: {}", path.display()))?;
         let mut language = Language::default();
 

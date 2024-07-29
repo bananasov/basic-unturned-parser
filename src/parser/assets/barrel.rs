@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use anyhow::Context;
 
 use super::caliber::ItemCaliberAsset;
@@ -34,11 +36,11 @@ pub struct ItemBarrelAsset {
 }
 
 impl Parser<ItemBarrelAsset> for ItemBarrelAsset {
-    fn parse<P: AsRef<std::path::Path>>(
-        directory: P,
-        content: String,
+    fn parse<P: AsRef<Path> + ?Sized>(
+        directory: &P,
+        content: &str,
     ) -> anyhow::Result<ItemBarrelAsset> {
-        let base = ItemCaliberAsset::parse(directory, content.clone())?;
+        let base = ItemCaliberAsset::parse(directory, content)?;
         let mut item = ItemBarrelAsset {
             base,
             ..Default::default()

@@ -43,9 +43,9 @@ fn main() -> anyhow::Result<()> {
                 .parent()
                 .context("Failed to get the parent of data file")?;
 
-            if let Ok(asset) = BaseAsset::parse(directory, content.clone()) {
+            if let Ok(asset) = BaseAsset::parse(directory, &content) {
                 if let torture::parser::assets::Type::Gun = asset.r#type {
-                    let gun = ItemGunAsset::parse(directory, content.clone())?;
+                    let gun = ItemGunAsset::parse(directory, &content)?;
                     println!("{:#?}", gun);
                 }
             }
