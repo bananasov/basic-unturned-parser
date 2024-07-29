@@ -1,0 +1,11 @@
+[package]
+name = "torture"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.86"
+clap = { version = "4.5.8", features = ["derive"] }
+csv = "1.3.0"
+masterbundle-collector = { git = "https://github.com/UnturnedIndexer/masterbundle-collector.git" }
+serde = { version = "1.0.203", features = ["derive"] }
