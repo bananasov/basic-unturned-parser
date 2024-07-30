@@ -28,7 +28,7 @@ pub struct ItemWeaponAsset {
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct PlayerDamage {
-    pub damage: f32,
+    pub amount: f32,
     pub leg_multiplier: f32,
     pub arm_multiplier: f32,
     pub spine_multiplier: f32,
@@ -42,7 +42,7 @@ pub struct PlayerDamage {
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ZombieDamage {
-    pub damage: f32,
+    pub amount: f32,
     pub leg_multiplier: f32,
     pub arm_multiplier: f32,
     pub spine_multiplier: f32,
@@ -51,7 +51,7 @@ pub struct ZombieDamage {
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct AnimalDamage {
-    pub damage: f32,
+    pub amount: f32,
     pub leg_multiplier: f32,
     pub spine_multiplier: f32,
     pub skull_multiplier: f32,
@@ -86,11 +86,31 @@ impl Parser<ItemWeaponAsset> for ItemWeaponAsset {
                 }
                 "Wear" => item.wear = value.parse().context("Failed to parse Wear as a u8")?,
                 "Invulnerable" => item.invulnerable = true,
-                "Barricade_Damage" => item.barricade_damage = value.parse().context("Failed to parse Barricade_Damage as f32")?,
-"Structure_Damage" => item.structure_damage = value.parse().context("Failed to parse Structure_Damage as f32")?,
-"Vehicle_Damage" => item.vehicle_damage = value.parse().context("Failed to parse Vehicle_Damage as f32")?,
-"Resource_Damage" => item.resource_damage = value.parse().context("Failed to parse Resource_Damage as f32")?,
-"Object_Damage" => item.object_damage = value.parse().context("Failed to parse Object_Damage as f32")?,
+                "Barricade_Damage" => {
+                    item.barricade_damage = value
+                        .parse()
+                        .context("Failed to parse Barricade_Damage as f32")?
+                }
+                "Structure_Damage" => {
+                    item.structure_damage = value
+                        .parse()
+                        .context("Failed to parse Structure_Damage as f32")?
+                }
+                "Vehicle_Damage" => {
+                    item.vehicle_damage = value
+                        .parse()
+                        .context("Failed to parse Vehicle_Damage as f32")?
+                }
+                "Resource_Damage" => {
+                    item.resource_damage = value
+                        .parse()
+                        .context("Failed to parse Resource_Damage as f32")?
+                }
+                "Object_Damage" => {
+                    item.object_damage = value
+                        .parse()
+                        .context("Failed to parse Object_Damage as f32")?
+                }
                 _ => {}
             }
         }
@@ -114,7 +134,7 @@ impl Parser<PlayerDamage> for PlayerDamage {
 
             match field {
                 "Player_Damage" => {
-                    damage.damage = value
+                    damage.amount = value
                         .parse()
                         .context("Failed to parse Player_Damage as a f32")?
                 }
@@ -181,7 +201,7 @@ impl Parser<ZombieDamage> for ZombieDamage {
 
             match field {
                 "Zombie_Damage" => {
-                    damage.damage = value
+                    damage.amount = value
                         .parse()
                         .context("Failed to parse Zombie_Damage as a f32")?
                 }
@@ -228,7 +248,7 @@ impl Parser<AnimalDamage> for AnimalDamage {
 
             match field {
                 "Animal_Damage" => {
-                    damage.damage = value
+                    damage.amount = value
                         .parse()
                         .context("Failed to parse Animal_Damage as f32")?
                 }
