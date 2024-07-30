@@ -1,4 +1,3 @@
-use anyhow::Context;
 use std::path::Path;
 
 use super::caliber::ItemCaliberAsset;

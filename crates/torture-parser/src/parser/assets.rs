@@ -1,6 +1,7 @@
 pub mod bag;
 pub mod barrel;
 pub mod caliber;
+pub mod grip;
 pub mod gun;
 pub mod magazine;
 pub mod sight;
