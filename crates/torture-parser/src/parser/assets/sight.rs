@@ -1,5 +1,3 @@
-use std::default;
-
 use anyhow::Context;
 
 use crate::parser::Parser;

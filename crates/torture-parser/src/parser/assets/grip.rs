@@ -27,10 +27,7 @@ impl Parser<ItemGripAsset> for ItemGripAsset {
 
             let field = split.next().unwrap_or("");
 
-            match field {
-                "Bipod" => item.is_bipod = true,
-                _ => {}
-            }
+            if field == "Bipod" { item.is_bipod = true }
         }
 
         Ok(item)

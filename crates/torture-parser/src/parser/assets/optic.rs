@@ -30,10 +30,7 @@ impl Parser<ItemOpticAsset> for ItemOpticAsset {
             let field = split.next().unwrap_or("");
             let value = split.next().unwrap_or("");
 
-            match field {
-                "Zoom" => item.zoom = value.parse().context("Failed to parse Zoom as f32")?,
-                _ => {}
-            }
+            if field == "Zoom" { item.zoom = value.parse().context("Failed to parse Zoom as f32")? }
         }
 
         Ok(item)
