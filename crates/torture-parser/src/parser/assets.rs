@@ -2,6 +2,9 @@ pub mod bag;
 pub mod barrel;
 pub mod caliber;
 pub mod gun;
+pub mod magazine;
+pub mod sight;
+pub mod tactical;
 pub mod weapon;
 
 use std::path::Path;
