@@ -34,7 +34,7 @@ pub struct ItemCaliberAsset {
     /// The value of the attached ranged weapon’s Firerate property is reduced by the value of this property.
     ///
     /// A larger decrease will allow for the ranged weapon to fire more often.
-    pub firerate: u8,
+    pub firerate: i8,
 
     /// If true, gun can damage entities with Invulnerable tag.
     pub invulnerable: bool,
@@ -100,7 +100,7 @@ impl Parser<ItemCaliberAsset> for ItemCaliberAsset {
                     item.damage = value.parse().context("Failed to parse Damage as a f32")?
                 }
                 "Firerate" => {
-                    item.firerate = value.parse().context("Failed to parse Damage as a u8")?;
+                    item.firerate = value.parse().context("Failed to parse Firerate as a i8")?;
                 }
                 "Invulnerable" => item.invulnerable = true,
                 "Paintable" => item.paintable = true,
