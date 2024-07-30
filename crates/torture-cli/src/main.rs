@@ -2,11 +2,19 @@ use anyhow::{anyhow, Context};
 use clap::Parser;
 use masterbundle_collector::MasterBundle;
 use std::path::{Path, PathBuf};
+use torture_parser::parser::assets::bag::ItemBagAsset;
+use torture_parser::parser::assets::barrel::ItemBarrelAsset;
+use torture_parser::parser::assets::consumable::ItemConsumableAsset;
+use torture_parser::parser::assets::grip::ItemGripAsset;
+use torture_parser::parser::assets::magazine::ItemMagazineAsset;
+use torture_parser::parser::assets::optic::ItemOpticAsset;
+use torture_parser::parser::assets::sight::ItemSightAsset;
+use torture_parser::parser::assets::tactical::ItemTacticalAsset;
 
 use torture_parser::get_file_stem;
 use torture_parser::parser::{
     assets::{gun::ItemGunAsset, BaseAsset},
-    Parser as _,
+    Parser as TortureParser,
 };
 
 #[derive(Parser)]
@@ -48,9 +56,44 @@ fn main() -> anyhow::Result<()> {
                 .context("Failed to get the parent of data file")?;
 
             if let Ok(asset) = BaseAsset::parse(directory, &content) {
-                if let torture_parser::parser::assets::Type::Gun = asset.r#type {
-                    let gun = ItemGunAsset::parse(directory, &content)?;
-                    println!("{:#?}", gun);
+                match asset.r#type {
+                    torture_parser::parser::assets::Type::Backpack => {
+                        let bwa = ItemBagAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Gun => {
+                        let bwa = ItemGunAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Sight => {
+                        let bwa = ItemSightAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Tactical => {
+                        let bwa = ItemTacticalAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Grip => {
+                        let bwa = ItemGripAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Barrel => {
+                        let bwa = ItemBarrelAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Magazine => {
+                        let bwa = ItemMagazineAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Optic => {
+                        let bwa = ItemOpticAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Medical => {
+                        let bwa = ItemConsumableAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    _ => println!("{:#?}", asset),
                 }
             }
         }
