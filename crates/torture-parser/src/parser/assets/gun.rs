@@ -81,8 +81,8 @@ impl Parser<ItemGunAsset> for ItemGunAsset {
     ) -> anyhow::Result<ItemGunAsset> {
         let base = ItemWeaponAsset::parse(directory, content)?;
         let ammo = Ammo::parse(directory, content)?;
-        let hooks: Vec<Hook> = Vec::parse(directory, content)?;
-        let firemodes: Vec<Firemode> = Vec::parse(directory, content)?;
+        let hooks: Vec<Hook> = Hook::parse(directory, content)?;
+        let firemodes: Vec<Firemode> = Firemode::parse(directory, content)?;
 
         let mut item = ItemGunAsset {
             base,
@@ -136,7 +136,7 @@ impl Parser<Ammo> for Ammo {
     }
 }
 
-impl Parser<Vec<Hook>> for Vec<Hook> {
+impl Parser<Vec<Hook>> for Hook {
     fn parse<P: AsRef<Path> + ?Sized>(_directory: &P, content: &str) -> anyhow::Result<Vec<Hook>> {
         let mut hooks = Vec::new();
 
@@ -174,7 +174,7 @@ impl From<&str> for Action {
     }
 }
 
-impl Parser<Vec<Firemode>> for Vec<Firemode> {
+impl Parser<Vec<Firemode>> for Firemode {
     fn parse<P: AsRef<Path> + ?Sized>(
         _directory: &P,
         content: &str,
