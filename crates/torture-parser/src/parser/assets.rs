@@ -4,6 +4,7 @@ pub mod caliber;
 pub mod grip;
 pub mod gun;
 pub mod magazine;
+pub mod optic;
 pub mod sight;
 pub mod tactical;
 pub mod weapon;
