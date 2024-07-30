@@ -23,6 +23,11 @@ pub struct ItemWeaponAsset {
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct PlayerDamage {
+    pub leg_multiplier: f32,
+    pub arm_multiplier: f32,
+    pub spine_multiplier: f32,
+    pub skull_multiplier: f32,
+
     pub food: f32,
     pub water: f32,
     pub virus: f32,
@@ -99,6 +104,26 @@ impl Parser<PlayerDamage> for PlayerDamage {
                     damage.hallucination = value
                         .parse()
                         .context("Failed to parse Player_Damage_Hallucination as a f32")?
+                }
+                "Leg_Multiplier" => {
+                    damage.leg_multiplier = value
+                        .parse()
+                        .context("Failed to parse Player_Leg_Multiplier as f32")?
+                }
+                "Arm_Multiplier" => {
+                    damage.arm_multiplier = value
+                        .parse()
+                        .context("Failed to parse Player_Arm_Multiplier as f32")?
+                }
+                "Spine_Multiplier" => {
+                    damage.spine_multiplier = value
+                        .parse()
+                        .context("Failed to parse Player_Spine_Multiplier as f32")?
+                }
+                "Skull_Multiplier" => {
+                    damage.skull_multiplier = value
+                        .parse()
+                        .context("Failed to parse Player_Skull_Multiplier as f32")?
                 }
                 _ => {}
             }
