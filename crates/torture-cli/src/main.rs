@@ -1,17 +1,21 @@
-mod cli;
-
+use anyhow::{anyhow, Context};
+use clap::Parser;
+use masterbundle_collector::MasterBundle;
 use std::path::{Path, PathBuf};
 
-use anyhow::{anyhow, Context};
-use clap::Parser as _;
-use masterbundle_collector::MasterBundle;
-use torture::get_file_stem;
-use torture::parser::{
+use torture_parser::get_file_stem;
+use torture_parser::parser::{
     assets::{gun::ItemGunAsset, BaseAsset},
-    Parser,
+    Parser as _,
 };
 
-use cli::Cli;
+#[derive(Parser)]
+#[command(version, about, long_about = None)]
+pub struct Cli {
+    /// Path to the bundles directory
+    #[arg(short, long, value_name = "PATH")]
+    pub path: PathBuf,
+}
 
 fn main() -> anyhow::Result<()> {
     let args = Cli::parse();
@@ -44,7 +48,7 @@ fn main() -> anyhow::Result<()> {
                 .context("Failed to get the parent of data file")?;
 
             if let Ok(asset) = BaseAsset::parse(directory, &content) {
-                if let torture::parser::assets::Type::Gun = asset.r#type {
+                if let torture_parser::parser::assets::Type::Gun = asset.r#type {
                     let gun = ItemGunAsset::parse(directory, &content)?;
                     println!("{:#?}", gun);
                 }

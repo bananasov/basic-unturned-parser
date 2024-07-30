@@ -1,0 +1,10 @@
+[package]
+name = "torture-cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow.workspace = true
+clap = { version = "4.5.8", features = ["derive"] }
+torture-parser.workspace = true
+masterbundle-collector.workspace = true
