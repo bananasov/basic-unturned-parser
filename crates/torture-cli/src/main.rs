@@ -2,6 +2,10 @@ use anyhow::{anyhow, Context};
 use clap::Parser;
 use masterbundle_collector::MasterBundle;
 use std::path::{Path, PathBuf};
+use torture_parser::parser::assets::gear::ItemGearAsset;
+use torture_parser::parser::assets::glasses::ItemGlassesAsset;
+use torture_parser::parser::assets::mask::ItemMaskAsset;
+use torture_parser::parser::assets::parachute::ItemParachuteAsset;
 
 use torture_parser::parser::assets::bag::ItemBagAsset;
 use torture_parser::parser::assets::barrel::ItemBarrelAsset;
@@ -15,7 +19,7 @@ use torture_parser::parser::assets::shirt::ItemShirtAsset;
 use torture_parser::parser::assets::sight::ItemSightAsset;
 use torture_parser::parser::assets::structure::ItemStructureAsset;
 use torture_parser::parser::assets::tactical::ItemTacticalAsset;
-use torture_parser::parser::assets::Type;
+use torture_parser::parser::assets::{parachute, Type};
 
 use torture_parser::get_file_stem;
 use torture_parser::parser::{
@@ -117,6 +121,22 @@ fn main() -> anyhow::Result<()> {
                     }
                     Type::Shirt => {
                         let bwa = ItemShirtAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    Type::Cloud => {
+                        let bwa = ItemParachuteAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    Type::Glasses => {
+                        let bwa = ItemGlassesAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    Type::Mask => {
+                        let bwa = ItemMaskAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    Type::Hat => {
+                        let bwa = ItemGearAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
                     Type::Unknown => {}
