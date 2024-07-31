@@ -2,6 +2,7 @@ use anyhow::{anyhow, Context};
 use clap::Parser;
 use masterbundle_collector::MasterBundle;
 use std::path::{Path, PathBuf};
+
 use torture_parser::parser::assets::bag::ItemBagAsset;
 use torture_parser::parser::assets::barrel::ItemBarrelAsset;
 use torture_parser::parser::assets::barricade::ItemBarricadeAsset;
@@ -10,9 +11,11 @@ use torture_parser::parser::assets::grip::ItemGripAsset;
 use torture_parser::parser::assets::magazine::ItemMagazineAsset;
 use torture_parser::parser::assets::optic::ItemOpticAsset;
 use torture_parser::parser::assets::sentry::ItemSentryAsset;
+use torture_parser::parser::assets::shirt::ItemShirtAsset;
 use torture_parser::parser::assets::sight::ItemSightAsset;
 use torture_parser::parser::assets::structure::ItemStructureAsset;
 use torture_parser::parser::assets::tactical::ItemTacticalAsset;
+use torture_parser::parser::assets::Type;
 
 use torture_parser::get_file_stem;
 use torture_parser::parser::{
@@ -60,59 +63,63 @@ fn main() -> anyhow::Result<()> {
 
             if let Ok(asset) = BaseAsset::parse(directory, &content) {
                 match asset.r#type {
-                    torture_parser::parser::assets::Type::Backpack => {
+                    Type::Backpack | Type::Pants | Type::Vest => {
                         let bwa = ItemBagAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Gun => {
+                    Type::Gun => {
                         let bwa = ItemGunAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Sight => {
+                    Type::Sight => {
                         let bwa = ItemSightAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Tactical => {
+                    Type::Tactical => {
                         let bwa = ItemTacticalAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Grip => {
+                    Type::Grip => {
                         let bwa = ItemGripAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Barrel => {
+                    Type::Barrel => {
                         let bwa = ItemBarrelAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Magazine => {
+                    Type::Magazine => {
                         let bwa = ItemMagazineAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Optic => {
+                    Type::Optic => {
                         let bwa = ItemOpticAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Medical => {
+                    Type::Medical => {
                         let bwa = ItemConsumableAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Barricade => {
+                    Type::Barricade => {
                         let bwa = ItemBarricadeAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Structure => {
+                    Type::Structure => {
                         let bwa = ItemStructureAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Storage => {
+                    Type::Storage => {
                         let bwa = ItemStructureAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Sentry => {
+                    Type::Sentry => {
                         let bwa = ItemSentryAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
-                    torture_parser::parser::assets::Type::Unknown => {}
+                    Type::Shirt => {
+                        let bwa = ItemShirtAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    Type::Unknown => {}
                     _ => println!("{:#?}", asset),
                 }
             }
