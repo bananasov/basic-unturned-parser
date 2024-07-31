@@ -7,8 +7,8 @@ use super::Parser;
 
 #[derive(Debug, serde::Serialize, serde::Deserialize, Default)]
 pub struct ItemBarrelAsset {
-    #[serde(flatten)]
-    pub base: ItemCaliberAsset,
+    #[serde(rename = "base")]
+    pub item_caliber_asset: ItemCaliberAsset,
 
     /// Gravity acceleration multiplier for bullets in flight.
     pub ballistic_drop: f32,
@@ -40,9 +40,9 @@ impl Parser<ItemBarrelAsset> for ItemBarrelAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemBarrelAsset> {
-        let base = ItemCaliberAsset::parse(directory, content)?;
+        let item_caliber_asset = ItemCaliberAsset::parse(directory, content)?;
         let mut item = ItemBarrelAsset {
-            base,
+            item_caliber_asset,
             ..Default::default()
         };
 

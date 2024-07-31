@@ -5,8 +5,8 @@ use super::Parser;
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemTacticalAsset {
-    #[serde(flatten)]
-    base: ItemCaliberAsset,
+    #[serde(rename = "base")]
+    item_caliber_asset: ItemCaliberAsset,
 
     /// If it provides a toggleable laser.
     pub laser: bool,
@@ -30,9 +30,9 @@ impl Parser<ItemTacticalAsset> for ItemTacticalAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemTacticalAsset> {
-        let base = ItemCaliberAsset::parse(directory, content)?;
+        let item_caliber_asset = ItemCaliberAsset::parse(directory, content)?;
         let mut item = ItemTacticalAsset {
-            base,
+            item_caliber_asset,
             ..Default::default()
         };
 

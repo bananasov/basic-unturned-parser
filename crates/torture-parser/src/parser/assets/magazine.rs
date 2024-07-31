@@ -5,8 +5,8 @@ use crate::parser::Parser;
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemMagazineAsset {
-    #[serde(flatten)]
-    base: ItemCaliberAsset,
+    #[serde(rename = "base")]
+    item_caliber_asset: ItemCaliberAsset,
 
     /// Number of bullet rays shot.
     pub pellets: u8,
@@ -69,9 +69,9 @@ impl Parser<ItemMagazineAsset> for ItemMagazineAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemMagazineAsset> {
-        let base = ItemCaliberAsset::parse(directory, content)?;
+        let item_caliber_asset = ItemCaliberAsset::parse(directory, content)?;
         let mut item = ItemMagazineAsset {
-            base,
+            item_caliber_asset,
             ..Default::default()
         };
 

@@ -8,8 +8,8 @@ use super::BaseAsset;
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemBagAsset {
-    #[serde(flatten)]
-    base: BaseAsset,
+    #[serde(rename = "base")]
+    base_asset: BaseAsset,
 
     /// Number of rows (vertical storage space).
     pub height: u8,
@@ -23,9 +23,9 @@ impl Parser<ItemBagAsset> for ItemBagAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemBagAsset> {
-        let base = BaseAsset::parse(directory, content)?;
+        let base_asset = BaseAsset::parse(directory, content)?;
         let mut item = ItemBagAsset {
-            base,
+            base_asset,
             ..Default::default()
         };
 

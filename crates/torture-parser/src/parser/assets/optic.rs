@@ -6,8 +6,8 @@ use super::{BaseAsset, Parser};
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemOpticAsset {
-    #[serde(flatten)]
-    base: BaseAsset,
+    #[serde(rename = "base")]
+    base_asset: BaseAsset,
 
     ///  Multiplicative amount of zoom.
     pub zoom: f32,
@@ -18,9 +18,9 @@ impl Parser<ItemOpticAsset> for ItemOpticAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemOpticAsset> {
-        let base = BaseAsset::parse(directory, content)?;
+        let base_asset = BaseAsset::parse(directory, content)?;
         let mut item = ItemOpticAsset {
-            base,
+            base_asset,
             ..Default::default()
         };
 
@@ -30,7 +30,9 @@ impl Parser<ItemOpticAsset> for ItemOpticAsset {
             let field = split.next().unwrap_or("");
             let value = split.next().unwrap_or("");
 
-            if field == "Zoom" { item.zoom = value.parse().context("Failed to parse Zoom as f32")? }
+            if field == "Zoom" {
+                item.zoom = value.parse().context("Failed to parse Zoom as f32")?
+            }
         }
 
         Ok(item)

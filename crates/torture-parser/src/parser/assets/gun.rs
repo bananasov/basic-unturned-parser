@@ -9,8 +9,8 @@ use super::Parser;
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemGunAsset {
-    #[serde(flatten)]
-    pub base: ItemWeaponAsset,
+    #[serde(rename = "base")]
+    pub item_weapon_asset: ItemWeaponAsset,
 
     pub ammo: Ammo,
     pub sight_id: u16,
@@ -79,13 +79,13 @@ impl Parser<ItemGunAsset> for ItemGunAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemGunAsset> {
-        let base = ItemWeaponAsset::parse(directory, content)?;
+        let item_weapon_asset = ItemWeaponAsset::parse(directory, content)?;
         let ammo = Ammo::parse(directory, content)?;
         let hooks: Vec<Hook> = Hook::parse(directory, content)?;
         let firemodes: Vec<Firemode> = Firemode::parse(directory, content)?;
 
         let mut item = ItemGunAsset {
-            base,
+            item_weapon_asset,
             ammo,
             hooks,
             firemodes,

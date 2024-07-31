@@ -6,8 +6,8 @@ use super::{BaseAsset, Parser};
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemCaliberAsset {
-    #[serde(flatten)]
-    pub base: BaseAsset,
+    #[serde(rename = "base")]
+    pub base_asset: BaseAsset,
 
     /// Multiplier on character movement speed while aiming down sights.
     pub aiming_movement_speed_multiplier: f32,
@@ -63,9 +63,9 @@ impl Parser<ItemCaliberAsset> for ItemCaliberAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemCaliberAsset> {
-        let base = BaseAsset::parse(directory, content)?;
+        let base_asset = BaseAsset::parse(directory, content)?;
         let mut item = ItemCaliberAsset {
-            base,
+            base_asset,
             ..Default::default()
         };
 

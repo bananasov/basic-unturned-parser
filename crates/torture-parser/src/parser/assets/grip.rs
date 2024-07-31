@@ -6,7 +6,7 @@ use super::Parser;
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemGripAsset {
     #[serde(flatten)]
-    base: ItemCaliberAsset,
+    item_caliber_asset: ItemCaliberAsset,
 
     pub is_bipod: bool,
 }
@@ -16,9 +16,9 @@ impl Parser<ItemGripAsset> for ItemGripAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemGripAsset> {
-        let base = ItemCaliberAsset::parse(directory, content)?;
+        let item_caliber_asset = ItemCaliberAsset::parse(directory, content)?;
         let mut item = ItemGripAsset {
-            base,
+            item_caliber_asset,
             ..Default::default()
         };
 
@@ -27,7 +27,9 @@ impl Parser<ItemGripAsset> for ItemGripAsset {
 
             let field = split.next().unwrap_or("");
 
-            if field == "Bipod" { item.is_bipod = true }
+            if field == "Bipod" {
+                item.is_bipod = true
+            }
         }
 
         Ok(item)

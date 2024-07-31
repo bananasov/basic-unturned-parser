@@ -6,8 +6,8 @@ use super::caliber::ItemCaliberAsset;
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemSightAsset {
-    #[serde(flatten)]
-    base: ItemCaliberAsset,
+    #[serde(rename = "base")]
+    item_caliber_asset: ItemCaliberAsset,
 
     /// Multiplicative amount of zoom.
     ///
@@ -102,9 +102,9 @@ impl Parser<ItemSightAsset> for ItemSightAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemSightAsset> {
-        let base = ItemCaliberAsset::parse(directory, content)?;
+        let item_caliber_asset = ItemCaliberAsset::parse(directory, content)?;
         let mut item = ItemSightAsset {
-            base,
+            item_caliber_asset,
             ..Default::default()
         };
 

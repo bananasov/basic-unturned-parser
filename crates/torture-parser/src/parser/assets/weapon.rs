@@ -7,7 +7,7 @@ use super::{BaseAsset, Parser};
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemWeaponAsset {
     #[serde(flatten)]
-    pub base: BaseAsset,
+    pub base_asset: BaseAsset,
 
     pub range: f32,
 
@@ -62,12 +62,17 @@ impl Parser<ItemWeaponAsset> for ItemWeaponAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemWeaponAsset> {
-        let base = BaseAsset::parse(directory, content)?;
+        let base_asset = BaseAsset::parse(directory, content)?;
+
         let player_damage = PlayerDamage::parse(directory, content)?;
+        let zombie_damage = ZombieDamage::parse(directory, content)?;
+        let animal_damage = AnimalDamage::parse(directory, content)?;
 
         let mut item = ItemWeaponAsset {
-            base,
+            base_asset,
             player_damage,
+            zombie_damage,
+            animal_damage,
             ..Default::default()
         };
 

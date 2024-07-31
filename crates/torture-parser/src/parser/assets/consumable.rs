@@ -7,8 +7,8 @@ use super::Parser;
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemConsumableAsset {
-    #[serde(flatten)]
-    base: ItemWeaponAsset,
+    #[serde(rename = "base")]
+    item_weapon_asset: ItemWeaponAsset,
 
     /// Specified if the item can be used on other players, via the “Secondary” action.
     pub is_aid: bool,
@@ -62,9 +62,9 @@ impl Parser<ItemConsumableAsset> for ItemConsumableAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemConsumableAsset> {
-        let base = ItemWeaponAsset::parse(directory, content)?;
+        let item_weapon_asset = ItemWeaponAsset::parse(directory, content)?;
         let mut item = ItemConsumableAsset {
-            base,
+            item_weapon_asset,
             ..Default::default()
         };
 
