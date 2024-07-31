@@ -6,7 +6,7 @@ use super::Parser;
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemGripAsset {
     #[serde(flatten)]
-    item_caliber_asset: ItemCaliberAsset,
+    pub item_caliber_asset: ItemCaliberAsset,
 
     pub is_bipod: bool,
 }

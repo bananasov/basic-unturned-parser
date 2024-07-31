@@ -6,7 +6,7 @@ use crate::parser::Parser;
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemMagazineAsset {
     #[serde(rename = "base")]
-    item_caliber_asset: ItemCaliberAsset,
+    pub item_caliber_asset: ItemCaliberAsset,
 
     /// Number of bullet rays shot.
     pub pellets: u8,

@@ -9,7 +9,7 @@ use super::BaseAsset;
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemBagAsset {
     #[serde(rename = "base")]
-    base_asset: BaseAsset,
+    pub base_asset: BaseAsset,
 
     /// Number of rows (vertical storage space).
     pub height: u8,

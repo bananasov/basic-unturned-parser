@@ -8,7 +8,7 @@ use super::Parser;
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemConsumableAsset {
     #[serde(rename = "base")]
-    item_weapon_asset: ItemWeaponAsset,
+    pub item_weapon_asset: ItemWeaponAsset,
 
     /// Specified if the item can be used on other players, via the “Secondary” action.
     pub is_aid: bool,

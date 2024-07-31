@@ -6,7 +6,7 @@ use super::Parser;
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemTacticalAsset {
     #[serde(rename = "base")]
-    item_caliber_asset: ItemCaliberAsset,
+    pub item_caliber_asset: ItemCaliberAsset,
 
     /// If it provides a toggleable laser.
     pub laser: bool,

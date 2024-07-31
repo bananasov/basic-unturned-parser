@@ -7,7 +7,7 @@ use super::{BaseAsset, Parser};
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemOpticAsset {
     #[serde(rename = "base")]
-    base_asset: BaseAsset,
+    pub base_asset: BaseAsset,
 
     ///  Multiplicative amount of zoom.
     pub zoom: f32,

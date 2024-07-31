@@ -7,7 +7,7 @@ use super::caliber::ItemCaliberAsset;
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemSightAsset {
     #[serde(rename = "base")]
-    item_caliber_asset: ItemCaliberAsset,
+    pub item_caliber_asset: ItemCaliberAsset,
 
     /// Multiplicative amount of zoom.
     ///
