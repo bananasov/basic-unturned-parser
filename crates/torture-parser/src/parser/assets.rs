@@ -7,7 +7,11 @@ pub mod grip;
 pub mod gun;
 pub mod magazine;
 pub mod optic;
+pub mod sentry;
+pub mod shirt;
 pub mod sight;
+pub mod storage;
+pub mod structure;
 pub mod tactical;
 pub mod weapon;
 
@@ -32,6 +36,7 @@ pub struct BaseAsset {
 #[derive(Debug, Copy, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub enum Type {
     #[default]
+    Unknown,
     Hat,
     Pants,
     Shirt,
@@ -202,7 +207,7 @@ impl From<&str> for Type {
             "Decal" => Self::Decal,
             "Effect" => Self::Effect,
             "Animal" => Self::Animal,
-            _ => Self::Structure,
+            _ => Self::Unknown,
         }
     }
 }

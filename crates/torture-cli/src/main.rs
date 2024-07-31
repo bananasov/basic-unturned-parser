@@ -9,7 +9,9 @@ use torture_parser::parser::assets::consumable::ItemConsumableAsset;
 use torture_parser::parser::assets::grip::ItemGripAsset;
 use torture_parser::parser::assets::magazine::ItemMagazineAsset;
 use torture_parser::parser::assets::optic::ItemOpticAsset;
+use torture_parser::parser::assets::sentry::ItemSentryAsset;
 use torture_parser::parser::assets::sight::ItemSightAsset;
+use torture_parser::parser::assets::structure::ItemStructureAsset;
 use torture_parser::parser::assets::tactical::ItemTacticalAsset;
 
 use torture_parser::get_file_stem;
@@ -98,6 +100,19 @@ fn main() -> anyhow::Result<()> {
                         let bwa = ItemBarricadeAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
+                    torture_parser::parser::assets::Type::Structure => {
+                        let bwa = ItemStructureAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Storage => {
+                        let bwa = ItemStructureAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Sentry => {
+                        let bwa = ItemSentryAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Unknown => {}
                     _ => println!("{:#?}", asset),
                 }
             }
