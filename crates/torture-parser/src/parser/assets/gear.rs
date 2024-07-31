@@ -1,5 +1,3 @@
-use anyhow::Context;
-
 use super::clothing::ItemClothingAsset;
 use super::Parser;
 

@@ -19,7 +19,7 @@ use torture_parser::parser::assets::shirt::ItemShirtAsset;
 use torture_parser::parser::assets::sight::ItemSightAsset;
 use torture_parser::parser::assets::structure::ItemStructureAsset;
 use torture_parser::parser::assets::tactical::ItemTacticalAsset;
-use torture_parser::parser::assets::{parachute, Type};
+use torture_parser::parser::assets::Type;
 
 use torture_parser::get_file_stem;
 use torture_parser::parser::{

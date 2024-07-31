@@ -149,7 +149,14 @@ impl From<&str> for Rarity {
             "Epic" => Self::Epic,
             "Legendary" => Self::Legendary,
             "Mythical" => Self::Mythical,
-            _ => panic!("invalid rarity, what the fuck"),
+
+            "common" => Self::Common,
+            "uncommon" => Self::Uncommon,
+            "rare" => Self::Rare,
+            "epic" => Self::Epic,
+            "legendary" => Self::Legendary,
+            "mythical" => Self::Mythical,
+            _ => panic!("Invalid rarity, got '{}'", value),
         }
     }
 }
