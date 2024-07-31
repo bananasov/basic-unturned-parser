@@ -4,12 +4,12 @@ use anyhow::Context;
 
 use crate::parser::Parser;
 
-use super::BaseAsset;
+use super::clothing::ItemClothingAsset;
 
 #[derive(Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct ItemBagAsset {
     #[serde(rename = "base")]
-    pub base_asset: BaseAsset,
+    pub item_clothing_asset: ItemClothingAsset,
 
     /// Number of rows (vertical storage space).
     pub height: u8,
@@ -23,9 +23,9 @@ impl Parser<ItemBagAsset> for ItemBagAsset {
         directory: &P,
         content: &str,
     ) -> anyhow::Result<ItemBagAsset> {
-        let base_asset = BaseAsset::parse(directory, content)?;
+        let item_clothing_asset = ItemClothingAsset::parse(directory, content)?;
         let mut item = ItemBagAsset {
-            base_asset,
+            item_clothing_asset,
             ..Default::default()
         };
 

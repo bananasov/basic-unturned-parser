@@ -2,6 +2,7 @@ pub mod bag;
 pub mod barrel;
 pub mod barricade;
 pub mod caliber;
+pub mod clothing;
 pub mod consumable;
 pub mod grip;
 pub mod gun;
