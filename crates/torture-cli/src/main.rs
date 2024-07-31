@@ -4,6 +4,7 @@ use masterbundle_collector::MasterBundle;
 use std::path::{Path, PathBuf};
 use torture_parser::parser::assets::bag::ItemBagAsset;
 use torture_parser::parser::assets::barrel::ItemBarrelAsset;
+use torture_parser::parser::assets::barricade::ItemBarricadeAsset;
 use torture_parser::parser::assets::consumable::ItemConsumableAsset;
 use torture_parser::parser::assets::grip::ItemGripAsset;
 use torture_parser::parser::assets::magazine::ItemMagazineAsset;
@@ -91,6 +92,10 @@ fn main() -> anyhow::Result<()> {
                     }
                     torture_parser::parser::assets::Type::Medical => {
                         let bwa = ItemConsumableAsset::parse(directory, &content)?;
+                        println!("{:#?}", bwa);
+                    }
+                    torture_parser::parser::assets::Type::Barricade => {
+                        let bwa = ItemBarricadeAsset::parse(directory, &content)?;
                         println!("{:#?}", bwa);
                     }
                     _ => println!("{:#?}", asset),
